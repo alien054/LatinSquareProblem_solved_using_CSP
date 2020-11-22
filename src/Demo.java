@@ -7,10 +7,10 @@ public class Demo
     static String[] dataset = {"alien.txt","d-10-01.txt","d-10-06.txt","d-10-07.txt","d-10-08.txt","d-10-09.txt","d-15-01.txt"};
     static Graph graph;
 
-    public static void DataLoader()
+    public static void DataLoader(int datasetIndex)
     {
         try {
-            File file = new File(dataset[0]);
+            File file = new File(dataset[datasetIndex]);
             BufferedReader br = new BufferedReader(new FileReader(file));
 
             String str;
@@ -19,6 +19,7 @@ public class Demo
             str = str.replace(";","");
             String[] s = str.split("=");
             int dim = Integer.parseInt(s[1]);
+            System.out.println("Give Problem: ");
             System.out.println("dim: " + dim);
             graph = new Graph(dim);
 
@@ -32,21 +33,25 @@ public class Demo
                 for(int j=0;j<dim;j++)
                 {
                     data[j] = data[j].replace("|","").replace("]","").strip();
-                    System.out.print( data[j] + " ");
+                    System.out.print( data[j] + "\t");
 
-                    graph.addNode(i,j,Integer.parseInt(data[j]));
+                    int value = Integer.parseInt(data[j]);
+                    graph.addNode(i,j,value);
                 }
                 System.out.println();
             }
 
             graph.constructGraph();
-            System.out.println(graph);
+            //System.out.println(graph);
+            Solver solver = new Solver(graph);
+            solver.solve();
+            solver.printSolution();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Demo.DataLoader();
+        Demo.DataLoader(6);
     }
 }

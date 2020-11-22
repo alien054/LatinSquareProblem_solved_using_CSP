@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class Graph
 {
     private int dimension;
@@ -43,6 +45,21 @@ public class Graph
         }
     }
 
+    public Set<Node> getNeighbors(int x,int y) { return getNode(x,y).getEdges(); }
+
+    public boolean hasEdge(int x1,int y1,int x2,int y2)
+    {
+        Node node1 = getNode(x1,y1);
+        Node node2 = getNode(x2,y2);
+
+        return (node1.getEdges().contains(node2) || node2.getEdges().contains(node1));
+    }
+
+    public Node getNode(int x, int y) { return nodes[x][y]; }
+
+    public int getDimension() { return this.dimension; }
+
+
     @Override
     public String toString() {
         String str = "";
@@ -58,8 +75,4 @@ public class Graph
 
         return str;
     }
-
-    public Node getNode(int x, int y) { return nodes[x][y]; }
-
-    public int getDimension() { return this.dimension; }
 }

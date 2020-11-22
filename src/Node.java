@@ -5,7 +5,7 @@ public class Node
 {
     private int pos_x;
     private int pos_y;
-    private int value;
+    private int value;private boolean changeable;
     private Set<Node> edges;
 
     Node(int x,int y,int v)
@@ -26,6 +26,8 @@ public class Node
     public int getY() { return pos_y; }
 
     public int getValue() { return value; }
+
+    public void setValue(int value) { this.value = value; }
 
     public Set<Node> getEdges() { return edges; }
 
