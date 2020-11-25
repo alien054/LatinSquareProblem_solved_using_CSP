@@ -45,13 +45,15 @@ public class Demo
             //System.out.println(graph);
             Solver solver = new Solver(graph);
             solver.solve();
-            solver.printSolution();
+//            solver.printSolution();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+//        for(int i=0;i<6;i++) Demo.DataLoader(i);
         Demo.DataLoader(6);
     }
 }
