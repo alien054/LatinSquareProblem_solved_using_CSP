@@ -14,7 +14,7 @@ public class Graph
 
     public void addNode(int x,int y,int v)
     {
-        Node temp = new Node(x,y,v);
+        Node temp = new Node(x,y,v,v != 0);
         if(v == 0) temp.initPossibleValue(dimension);
         else temp.possibleValues.add(v);
         nodes[x][y] = temp;

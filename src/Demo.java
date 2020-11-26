@@ -1,13 +1,14 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Comparator;
 
 public class Demo
 {
     static String[] dataset = {"alien.txt","d-10-01.txt","d-10-06.txt","d-10-07.txt","d-10-08.txt","d-10-09.txt","d-15-01.txt"};
     static Graph graph;
 
-    public static void DataLoader(int datasetIndex)
+    public static void DataLoader(int datasetIndex, Comparator<Node>order)
     {
         try {
             File file = new File(dataset[datasetIndex]);
@@ -44,7 +45,7 @@ public class Demo
             graph.constructGraph();
             //System.out.println(graph);
             Solver solver = new Solver(graph);
-            solver.solve();
+            solver.solve(order);
 //            solver.printSolution();
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,7 +54,7 @@ public class Demo
 
     public static void main(String[] args)
     {
-//        for(int i=0;i<6;i++) Demo.DataLoader(i);
-        Demo.DataLoader(6);
+        for(int i=0;i<6;i++) Demo.DataLoader(i,Node.sdfOrder);
+//        Demo.DataLoader(6,Node.sdfOrder);
     }
 }

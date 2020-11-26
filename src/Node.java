@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Node
 {
@@ -10,12 +7,14 @@ public class Node
     private int value;
     private Set<Node> edges;
     public List<Integer> possibleValues;
+    public boolean colored;
 
-    Node(int x,int y,int v)
+    Node(int x,int y,int v,boolean colored)
     {
         this.pos_x = x;
         this.pos_y = y;
         this.value = v;
+        this.colored = colored;
 
         edges = new HashSet<>();
         possibleValues = new ArrayList<>();
@@ -41,6 +40,10 @@ public class Node
     public int getValue() { return value; }
 
     public void setValue(int value) { this.value = value; }
+
+    public boolean isColored() { return colored; }
+
+    public void setColored(boolean colored) { this.colored = colored; }
 
     public Set<Node> getEdges() { return edges; }
 
@@ -69,4 +72,17 @@ public class Node
 
         return str;
     }
+
+    public static Comparator<Node> sdfOrder = Comparator.comparingInt(o -> o.possibleValues.size());
+
+    public static Comparator<Node> position = (o1, o2) -> {
+        if(o1.pos_x < o2.pos_x)  return -1;
+
+        else if(o1.pos_x == o2.pos_x)
+        {
+            return Integer.compare(o1.pos_y, o2.pos_y);
+        }
+
+        else return 1;
+    };
 }
