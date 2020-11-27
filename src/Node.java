@@ -6,7 +6,7 @@ public class Node
     private int pos_y;
     private int value;
     private Set<Node> edges;
-    public List<Integer> possibleValues;
+    public Set<Integer> possibleValues;
     public boolean colored;
 
     Node(int x,int y,int v,boolean colored)
@@ -17,7 +17,7 @@ public class Node
         this.colored = colored;
 
         edges = new HashSet<>();
-        possibleValues = new ArrayList<>();
+        possibleValues = new HashSet<>();
     }
 
     public void initPossibleValue(int dim) { for(int i=1;i<=dim;i++) { possibleValues.add(i); } }
@@ -28,6 +28,7 @@ public class Node
         {
             edges.add(edge);
             edge.possibleValues.remove((Object) this.getValue());
+            this.possibleValues.remove((Object) edge.getValue());
         }
     }
 
@@ -47,7 +48,15 @@ public class Node
 
     public Set<Node> getEdges() { return edges; }
 
-    public int getDegree() { return this.edges.size(); }
+    public int getMinDegree()
+    {
+        int degree=0;
+        for(Node neighbor: this.edges)
+        {
+            if(!neighbor.isColored()) degree++;
+        }
+        return degree;
+    }
 
     public String printNode() { return "Node: (" + this.getX() + ", " + this.getY() + ") value: " + this.value + "\n"; }
 
@@ -73,7 +82,13 @@ public class Node
         return str;
     }
 
-    public static Comparator<Node> sdfOrder = Comparator.comparingInt(o -> o.possibleValues.size());
+    public static Comparator<Node> sdfOrder = (o1, o2) -> {
+        if(o1.possibleValues.size() < o2.possibleValues.size())  return -1;
+
+        else if(o1.possibleValues.size() > o2.possibleValues.size()) return 1;
+
+        else return 0;
+    };
 
     public static Comparator<Node> position = (o1, o2) -> {
         if(o1.pos_x < o2.pos_x)  return -1;
@@ -84,5 +99,28 @@ public class Node
         }
 
         else return 1;
+    };
+
+    public static Comparator<Node> minDegree = (o1, o2) -> {
+        if(o1.getMinDegree() < o2.getMinDegree())  return -1;
+
+        else if(o1.getMinDegree() > o2.getMinDegree()) return 1;
+
+        else return 0;
+    };
+
+    public static Comparator<Node> brelaz = (o1, o2) -> {
+        if(o1.possibleValues.size() < o2.possibleValues.size())  return -1;
+
+        else if(o1.possibleValues.size() > o2.possibleValues.size()) return 1;
+
+        else
+        {
+            if(o1.getMinDegree() < o2.getMinDegree())  return -1;
+
+            else if(o1.getMinDegree() > o2.getMinDegree()) return 1;
+
+            else return 0;
+        }
     };
 }

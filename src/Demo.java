@@ -54,7 +54,7 @@ public class Demo
 
     public static void main(String[] args)
     {
-        for(int i=0;i<6;i++) Demo.DataLoader(i,Node.sdfOrder);
-//        Demo.DataLoader(6,Node.sdfOrder);
+//        for(int i=0;i<6;i++) Demo.DataLoader(i,Node.brelaz);
+        Demo.DataLoader(6,Node.brelaz);
     }
 }

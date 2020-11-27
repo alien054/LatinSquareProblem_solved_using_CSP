@@ -126,28 +126,39 @@ public class Solver
         nodes.sort(order);
         Node currentNode = nodes.get(0);
 
+
         for(int i=1;i<=this.dim;i++)
         {
             if(currentNode.possibleValues.contains(i) && isSafe(currentNode,i) && forwardCheck(currentNode,i))
             {
                 currentNode.setValue(i);
-                //currentNode.setColored(true);
+                currentNode.setColored(true);
                 nodes.remove(currentNode);
-                for(Node neighbor: currentNode.getEdges()) { neighbor.possibleValues.remove((Object) i); }
+                for(Node neighbor: currentNode.getEdges())
+                {
+                    if(!neighbor.isColored())
+                        neighbor.possibleValues.remove((Object) i);
+                }
 
                 if(backTrackSolveFC2()) return true;
                 numOfBT++;
 
                 currentNode.setValue(0);
-                //currentNode.setColored(false);
-                nodes.add(currentNode);
-                for(Node neighbor: currentNode.getEdges()) { neighbor.possibleValues.add(i); }
+                currentNode.setColored(false);
+                nodes.add(0,currentNode);
+                for(Node neighbor: currentNode.getEdges())
+                {
+                    if(!neighbor.isColored())
+                        neighbor.possibleValues.add(i);
+                }
+
             }
         }
 
         numOfBT2++; //(this is the same measurement as numOfBT)
         return false;
     }
+
 
     public void printSolution()
     {
