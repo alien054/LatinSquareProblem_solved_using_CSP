@@ -55,6 +55,7 @@ public class Demo
     public static void main(String[] args)
     {
 //        for(int i=0;i<6;i++) Demo.DataLoader(i,Node.brelaz);
-        Demo.DataLoader(6,Node.brelaz);
+//        System.out.println("only sdf");
+        Demo.DataLoader(6,Node.position);
     }
 }

@@ -6,7 +6,7 @@ public class Node
     private int pos_y;
     private int value;
     private Set<Node> edges;
-    public Set<Integer> possibleValues;
+    public List<Integer> possibleValues;
     public boolean colored;
 
     Node(int x,int y,int v,boolean colored)
@@ -17,7 +17,7 @@ public class Node
         this.colored = colored;
 
         edges = new HashSet<>();
-        possibleValues = new HashSet<>();
+        possibleValues = new ArrayList<>();
     }
 
     public void initPossibleValue(int dim) { for(int i=1;i<=dim;i++) { possibleValues.add(i); } }

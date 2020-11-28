@@ -136,7 +136,7 @@ public class Solver
                 nodes.remove(currentNode);
                 for(Node neighbor: currentNode.getEdges())
                 {
-                    if(!neighbor.isColored())
+//                    if(!neighbor.isColored())
                         neighbor.possibleValues.remove((Object) i);
                 }
 
@@ -148,7 +148,7 @@ public class Solver
                 nodes.add(0,currentNode);
                 for(Node neighbor: currentNode.getEdges())
                 {
-                    if(!neighbor.isColored())
+//                    if(!neighbor.isColored())
                         neighbor.possibleValues.add(i);
                 }
 
@@ -200,8 +200,8 @@ public class Solver
 //        clearSolution();
         this.order = order;
 //        nodes.sort(order);
-//        backTrackSolveFC(0);
-        backTrackSolveFC2();
+        backTrackSolveFC(0);
+//        backTrackSolveFC2();
         printSolution();
     }
 
